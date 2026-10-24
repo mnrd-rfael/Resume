@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+<title>Maenard Rafael Lagahit Resume</title>
+<link rel="stylesheet" href="resume_1.css">
+</head>
+<body>
+<header class="band">
+  <div class="wrap">
+    <div class="topline">
+       <button class="theme-btn" id="themeBtn" type="button">Switch theme</button>
+    </div>
+    <div class="id">
+      <img class="photo" src="profile.jpg" alt="Photo">
+      <div>
+        <h1>Maenard Rafael B. Lagahit</h1>
+        <p class="role">Aspiring Cybersecurity Professional</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <main>
+    <div class="col">
+      <section>
+        <h2>Contact</h2>
+        <ul class="contact">
+          <li><span class="label">Email</span><span class="val">maenardlagahit@gmail.com</span></li>
+          <li><span class="label">Phone</span><span class="val">+63 961 233 1105</span></li>
+          <li><span class="label">Location</span><span class="val">Rodriguez, Rizal, Philippines</span></li>
+          <li><span class="label">Age</span><span class="val">20 years old</span></li>
+          <li><span class="label">LinkedIn</span><a class="val" href="https://www.linkedin.com/in/maenard-rafael-lagahit-914b9a384" target="_blank" rel="noopener">View profile</a></li>
+        </ul>
+      </section>
+      <section>
+        <h2>Skills</h2>
+        <ul class="tags">
+          <li>HTML</li><li>CSS</li><li>JavaScript</li><li>Python</li><li>C++</li><li>Java</li>
+        </ul>
+      </section>
+    </div>
+
+    <div class="col">
+      <section>
+        <h2>Objective</h2>
+        <p>BSIT student looking for an entry-level cybersecurity role or internship where I can apply my networking and programming coursework to monitor threats, protect systems, and keep learning.</p>
+      </section>
+      <section>
+        <h2>Education</h2>
+        <div class="entry">
+          <h3>Bachelor of Science in Information Technology</h3>
+          <span class="meta">Polytechnic University of the Philippines, Sta. Mesa, Manila</span>
+        </div>
+      </section>
+      <section>
+        <h2>Experience</h2>
+        <p>No work experience yet. Eager to gain hands-on experience in cybersecurity.</p>
+      </section>
+      <section>
+        <h2>Certifications</h2>
+        <ul class="tags planned">
+            <li>Fortinet Cybersecurity Certificate</li><li>Cisco CCNA</li><li>Coursera Cybersecurity Certificate</li>
+        </ul>
+        <p class="note">Planned certifications</p>
+      </section>
+    </div>
+  </main>
+</div>
+
+<script>
+  const root = document.documentElement;
+  document.getElementById("themeBtn").onclick = () => {
+    const dark = root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+    root.dataset.theme = dark ? "light" : "dark";
+  };
+</script>
+</body>
+</html>

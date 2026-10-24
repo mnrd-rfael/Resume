@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maenard Rafael Lagahit Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style_1.css ">
+
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<header class="hero">
+  <div class="wrap">
+    <nav class="nav" aria-label="Page">
+        <div class="nav-right">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+        <button class="theme-btn" id="themeBtn" type="button">Switch theme</button>
+      </div>
+    </nav>
+    <p class="eyebrow">Hi, I'm</p>
+    <h1>Maenard Rafael Lagahit</h1>
+    <p class="role"><span id="role">Aspiring Cybersecurity Professional</span><span class="cursor" aria-hidden="true">&nbsp;</span></p>
+    <p class="lede">BSIT student at PUP Manila who builds with web technologies and wants to work in network and information security.</p>
+    <div class="actions">
+      <a class="btn primary" href="resume.html" target="_blank" rel="noopener">See resume</a>
+      <a class="btn ghost" href="#contact">Get in touch</a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <section id="about">
+    <h2>About</h2>
+    <div class="stack">
+       <p>I’m a 20-year-old Information Technology student at PUP Manila, based in Rodriguez, Rizal, aiming for an entry-level cybersecurity role or internship. My coursework in networking, integrative programming, and human-computer interaction has been mostly project-based. In group projects I’ve delivered both the technical build and the formal documentation.</p>
+      <p>I'm learning to write front-end code by hand,this portfolio is one result and I am aiming for an entry-level cybersecurity role or internship.</p>
+    </div>
+  </section>
+
+  <section id="skills">
+    <h2>Skills</h2>
+    <ul class="tags" id="skillTags"></ul>
+  </section>
+
+  <section id="projects">
+    <h2>Projects</h2>
+    <div class="projects" id="projectList"></div>
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <ul class="contact">
+      <li><span class="label">Email</span><span class="val" id="emailVal">maenardlagahit@gmail.com</span><button class="copy" type="button" id="copyBtn">Copy email</button></li>
+      <li><span class="label">Phone</span><span class="val">+63 961 233 1105</span></li>
+      <li><span class="label">Location</span><span class="val">Rodriguez, Rizal, Philippines</span></li>
+      <li><span class="label">LinkedIn</span><a class="val" href="https://www.linkedin.com/in/maenard-rafael-lagahit-914b9a384" target="_blank" rel="noopener">View profile</a></li>
+    </ul>
+  </section>
+
+  <footer>Maenard Rafael B. Lagahit &middot; PUP Manila &middot; <a href="resume_1.css" target="_blank" rel="noopener">Resume</a></footer>
+</div>
+
+<script>
+  const data = {
+    roles: ["Aspiring Cybersecurity Professional", "BSIT Student", "Network Security Enthusiast"],
+    skills: ["HTML", "CSS", "JavaScript", "Python", "C++", "Java", "Networking", "Technical documentation"],
+    projects: [
+      { title: "Dynamic Resume Page", text: "A resume built from a JavaScript data object. It renders its own sections, skill tags, a typing effect and a light/dark theme toggle.", stack: "HTML / CSS / JavaScript" },
+      { title: "Attendance Monitoring System", text: "A simple system to track student attendance using Visual Basic .NET", stack: "Visual Basic .NET" },
+      { title: "JavaScript Arrays Practice", text: "Parallel arrays and index variables used to build a sentence on the page. My first step into DOM scripting.", stack: "JavaScript" }
+    ]
+  };
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+  $("skillTags").innerHTML = data.skills.map(s => `<li>${esc(s)}</li>`).join("");
+  $("projectList").innerHTML = data.projects.map(p =>
+    `<article class="project"><h3>${esc(p.title)}</h3><p>${esc(p.text)}</p><span class="stackline">${esc(p.stack)}</span></article>`).join("");
+
+  $("copyBtn").onclick = async () => {
+    const btn = $("copyBtn");
+    try {
+      await navigator.clipboard.writeText($("emailVal").textContent);
+      btn.textContent = "Copied";
+    } catch (e) {
+      const r = document.createRange(); r.selectNodeContents($("emailVal"));
+      const s = getSelection(); s.removeAllRanges(); s.addRange(r);
+      btn.textContent = "Press copy";
+    }
+    setTimeout(() => (btn.textContent = "Copy email"), 1800);
+  };
+
+  // Typing effect sa taas
+  const roleEl = $("role");
+  if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    let t = 0, c = data.roles[0].length, deleting = true;
+    const step = () => {
+      const word = data.roles[t];
+      roleEl.textContent = word.slice(0, c);
+      if (!deleting && c < word.length) { c++; setTimeout(step, 80); }
+      else if (!deleting) { deleting = true; setTimeout(step, 2200); }
+      else if (c > 0) { c--; setTimeout(step, 35); }
+      else { deleting = false; t = (t + 1) % data.roles.length; setTimeout(step, 250); }
+    };
+    setTimeout(step, 2200);
+  }
+
+  // Theme toggle 
+  const root = document.documentElement;
+  $("themeBtn").onclick = () => {
+    const dark = root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+    root.dataset.theme = dark ? "light" : "dark";
+  };
+
+  // Scroll animations
+  document.querySelectorAll(".tags, .projects").forEach(group => {
+    [...group.children].forEach((child, i) => child.style.setProperty("--i", i));
+  });
+  const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!reduceMotion && "IntersectionObserver" in window) {
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll("section, .tags, .projects").forEach(el => {
+      el.classList.add("reveal");
+      io.observe(el);
+    });
+  }
+
+  // Scroll progress bar
+  const bar = $("progress");
+  const updateBar = () => {
+    const max = document.documentElement.scrollHeight - innerHeight;
+    bar.style.transform = `scaleX(${max > 0 ? scrollY / max : 0})`;
+  };
+  addEventListener("scroll", updateBar, { passive: true });
+  updateBar();
+</script>
+</body>
+</html>
